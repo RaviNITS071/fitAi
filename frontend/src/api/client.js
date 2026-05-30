@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = "https://fitai-backend-8v70.onrender.com";
 
 export const registerUser = (username, email, password) => axios.post(`${API_URL}/register`, { username, email, password });
 export const loginUser = (email, password) => axios.post(`${API_URL}/login`, { email, password });
