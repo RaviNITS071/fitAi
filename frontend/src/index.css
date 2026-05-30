@@ -1,4 +1,15 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body { @apply bg-slate-950 text-white; }
+}
+
+.glass {
+  @apply bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
+}
