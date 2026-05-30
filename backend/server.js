@@ -5,7 +5,14 @@ const connectDB = require('./config/db');
 const apiRoutes = require('./routes/api');
 
 const app = express();
-app.use(cors());
+
+// Updated CORS Policy to explicitly allow your deployed frontend
+app.use(cors({
+  origin: 'https://fitai-ivd5.onrender.com', // Aapka live frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 connectDB();
