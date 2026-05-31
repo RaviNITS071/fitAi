@@ -58,7 +58,7 @@ export default function Login({ onLoginSuccess }) {
                 type="text" 
                 name="username" 
                 required={!isLogin} 
-                className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
+                className="w-full px-5 py-3.5 bg-slate-50 text-slate-900 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
                 placeholder="Enter your username"
                 value={formData.username} 
                 onChange={handleChange} 
@@ -71,7 +71,7 @@ export default function Login({ onLoginSuccess }) {
               type="email" 
               name="email" 
               required 
-              className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
+              className="w-full px-5 py-3.5 bg-slate-50 text-slate-900 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
               placeholder="name@example.com"
               value={formData.email} 
               onChange={handleChange} 
@@ -83,7 +83,7 @@ export default function Login({ onLoginSuccess }) {
               type="password" 
               name="password" 
               required 
-              className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
+              className="w-full px-5 py-3.5 bg-slate-50 text-slate-900 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all dark:text-white" 
               placeholder="••••••••"
               value={formData.password} 
               onChange={handleChange} 
