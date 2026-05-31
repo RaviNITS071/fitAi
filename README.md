@@ -1,5 +1,5 @@
 # fitAi
-# 🛠️ FitAI - Comprehensive Tech Stack Documentation
+# 🛠️ FitAI - Comprehensive Tech Stack Documentation // LIVE LINK : https://fitai-ivd5.onrender.com
 
 This document provides an in-depth breakdown of the technologies, frameworks, and tools used to architect and develop **FitAI**, a highly responsive and scalable full-stack web application.
 
