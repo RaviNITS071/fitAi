@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { logUserProgress } from '../api/client.js';
+import Chatbot from './Chatbot'; // Adjust this path if your Chatbot component is in another folder
 import { 
   TrendingUp, Droplet, Flame, CheckCircle, Calendar, 
   PlusCircle, History, Layout, ArrowRight, Zap, 
@@ -10,7 +11,7 @@ import {
 
 export default function ProgressTracker({ user, onProgressUpdated }) {
   const [logData, setLogData] = useState({
-    weight: user?.weight || '', 
+    weight: user?.profile?.weight || '', 
     waterIntake: '', 
     caloriesConsumed: '', 
     sleepHours: '',
@@ -114,7 +115,7 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
 
   // Dynamic AI Status based on Diet & Daily Log
   const aiStatusText = useMemo(() => {
-    const dietType = user?.diet || 'current diet';
+    const dietType = user?.profile?.dietaryPreference || 'current diet';
     const currentCalories = Number(logData.caloriesConsumed);
     const currentSleep = Number(logData.sleepHours);
     const currentWater = Number(logData.waterIntake);
@@ -134,7 +135,7 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
     if (stats?.streak > 3) return `Metabolic momentum is high. Your ${dietType} strategy is highly efficient.`;
     
     return `Building foundation. Consistency in training and your ${dietType} is the focus.`;
-  }, [logData.energyLevel, logData.caloriesConsumed, logData.sleepHours, logData.waterIntake, stats?.streak, user?.diet]);
+  }, [logData.energyLevel, logData.caloriesConsumed, logData.sleepHours, logData.waterIntake, stats?.streak, user?.profile?.dietaryPreference]);
 
   // Dynamic Next Phase based on Diet & Daily Log
   const nextPhaseText = useMemo(() => {
@@ -142,7 +143,7 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
     const activeCalories = hasCurrentCalories ? Number(logData.caloriesConsumed) : (stats?.avgCalories || 0);
     const currentSleep = Number(logData.sleepHours);
     
-    const dietStr = (user?.diet || '').toLowerCase();
+    const dietStr = (user?.profile?.dietaryPreference || '').toLowerCase();
     const isLowCarb = dietStr.includes('keto') || dietStr.includes('low carb');
 
     // Priority 1: Recovery Needs
@@ -158,7 +159,7 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
     if (activeCalories > 0 && activeCalories < 1500) return { bold: 'Maintenance', rest: 'phase to preserve muscle mass in a deficit.' };
     
     return { bold: 'High Intensity', rest: 'conditioning phase for peak efficiency.' };
-  }, [logData.energyLevel, logData.caloriesConsumed, logData.sleepHours, stats?.avgCalories, user?.diet]);
+  }, [logData.energyLevel, logData.caloriesConsumed, logData.sleepHours, stats?.avgCalories, user?.profile?.dietaryPreference]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -173,7 +174,7 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
   };
 
   return (
-    <div className="w-full flex flex-col space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+    <div className="w-full flex flex-col space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700 relative">
       
       {/* 1. Pro Insights Banner */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-indigo-950 dark:to-slate-900 p-8 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden">
@@ -387,6 +388,9 @@ export default function ProgressTracker({ user, onProgressUpdated }) {
           )}
         </div>
       </div>
+
+      {/* Floating AI Chatbot */}
+      {user && <Chatbot user={user} />}
     </div>
   );
 }

@@ -6,9 +6,12 @@ const apiRoutes = require('./routes/api');
 
 const app = express();
 
-// Updated CORS Policy to explicitly allow your deployed frontend
+// Updated CORS Policy to allow both local development and deployed frontend
 app.use(cors({
-  origin: 'https://fitai-ivd5.onrender.com', // Aapka live frontend URL
+  origin: [
+    'https://fitai-ivd5.onrender.com', // Aapka live frontend URL
+    'http://localhost:5173'            // Aapka local React/Vite URL (Yeh add karna zaroori tha)
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
