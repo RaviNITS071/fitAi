@@ -6,20 +6,52 @@ const apiRoutes = require('./routes/api');
 
 const app = express();
 
-// Updated CORS Policy to allow both local development and deployed frontend
+// Flexible CORS setup for local dev, Vite, and production deployments
+const allowedOrigins = [
+  'https://fitai-ivd5.onrender.com',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000'
+];
+
 app.use(cors({
-  origin: [
-    'https://fitai-ivd5.onrender.com', // Aapka live frontend URL
-    'http://localhost:5173'            // Aapka local React/Vite URL (Yeh add karna zaroori tha)
-  ],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost:')) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow dev origins seamlessly
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
-connectDB();
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'FitAI RAG & Fitness Engine',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use('/api', apiRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Centralized error handling middleware (PDF Chapter 12 & 20)
+app.use((err, req, res, next) => {
+  console.error("Centralized Server Error Handler:", err);
+  res.status(err.status || 500).json({
+    error: err.message || "Internal server error"
+  });
+});
+
+// Connect DB only if not in testing mode (tests manage their own or mocked DB)
+if (process.env.NODE_ENV !== 'test') {
+  connectDB();
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+}
+
+module.exports = app;
