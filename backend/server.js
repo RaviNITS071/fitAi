@@ -47,8 +47,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Connect DB only if not in testing mode (tests manage their own or mocked DB)
-if (process.env.NODE_ENV !== 'test') {
+// Connect DB and listen only if not in testing mode (Jest defines JEST_WORKER_ID)
+if (process.env.NODE_ENV !== 'test' && !process.env.JEST_WORKER_ID) {
   connectDB();
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
