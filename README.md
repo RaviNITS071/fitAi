@@ -2,17 +2,23 @@
 
 > An evidence-based, sports-science athletic platform powered by **LangChain.js**, **OpenAI Embeddings**, and **MongoDB Atlas Vector Search (RAG)** to generate clinically safe workout splits, macro-calibrated Indian nutrition plans, and 24/7 AI coaching.
 
-[![Live Application](https://img.shields.io/badge/Live_Demo-fitai--qk6c.onrender.com-22C55E?style=for-the-badge&logo=render&logoColor=white)](https://fitai-qk6c.onrender.com)
-[![Backend API](https://img.shields.io/badge/API_Health-online-0F172A?style=for-the-badge&logo=node.js&logoColor=white)](https://fitai-backend-jxsv.onrender.com/api/health)
-[![Tests Passing](https://img.shields.io/badge/Tests-29%2F29_Passing-10B981?style=for-the-badge&logo=jest&logoColor=white)](https://github.com)
+<p align="left">
+  <a href="https://fitai-qk6c.onrender.com" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-fitai--qk6c.onrender.com-22C55E?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" />
+  </a>
+  <a href="https://fitai-backend-jxsv.onrender.com/api/health" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/⚡%20Backend%20API-online-0F172A?style=for-the-badge&logo=node.js&logoColor=white" alt="Backend API" />
+  </a>
+  <img src="https://img.shields.io/badge/Tests-29%2F29_Passing-10B981?style=for-the-badge&logo=jest&logoColor=white" alt="Tests Passing" />
+</p>
 
 ---
 
-## 🌐 Live Deployments
+## 🌐 Live Deployments (Opens Directly in Browser)
 
-- **Production Frontend:** [https://fitai-qk6c.onrender.com](https://fitai-qk6c.onrender.com)
-- **Production Backend API:** [https://fitai-backend-jxsv.onrender.com](https://fitai-backend-jxsv.onrender.com)
-- **API Health Check:** [https://fitai-backend-jxsv.onrender.com/api/health](https://fitai-backend-jxsv.onrender.com/api/health)
+- 🔗 **Production Frontend:** <a href="https://fitai-qk6c.onrender.com" target="_blank" rel="noopener noreferrer">**https://fitai-qk6c.onrender.com** ↗</a>
+- ⚙️ **Production Backend API:** <a href="https://fitai-backend-jxsv.onrender.com" target="_blank" rel="noopener noreferrer">https://fitai-backend-jxsv.onrender.com ↗</a>
+- 🩺 **API Health Check:** <a href="https://fitai-backend-jxsv.onrender.com/api/health" target="_blank" rel="noopener noreferrer">https://fitai-backend-jxsv.onrender.com/api/health ↗</a>
 
 ---
 
@@ -78,14 +84,14 @@ FitAI uses a two-pipeline retrieval architecture to ensure factual accuracy and 
 
 ## ✨ Core Features
 
-| Feature | Description | File / Route |
+| Feature | Description | Direct Live Route |
 | :--- | :--- | :--- |
 | **🏋️ RAG Plan Generator** | Generates 6-day split (Push/Pull/Legs/Rest), Indian macro meals, and injury precautions with citations. | `POST /api/generate-plan` |
-| **🥗 Macro Calculator** | Clinical Mifflin-St Jeor TDEE energy calculator with calibrated Indian food database (paneer, soya, dal). | [`/nutrition`](https://fitai-qk6c.onrender.com/nutrition) |
-| **⏱️ Exercise Library & Rest Timer** | Biomechanical form standards with an interactive rest interval timer (45s, 60s, 90s, 120s). | [`/workouts`](https://fitai-qk6c.onrender.com/workouts) |
-| **🤖 24/7 AI Coach Studio** | Context-aware sports trainer with conversational memory and hands-free Web Speech voice synthesis. | [`/coach`](https://fitai-qk6c.onrender.com/coach) |
-| **📈 Daily Progress Tracking** | Daily weight trends, hydration tracking, and smart recovery alerts based on sleep hours. | [`/dashboard`](https://fitai-qk6c.onrender.com/dashboard) |
-| **🔒 Google OAuth & JWT** | Secure Google Sign-In via Google Identity Services (GIS), bcrypt password hashing, and 7-day JWT tokens. | `POST /api/auth/google` |
+| **🥗 Macro Calculator** | Clinical Mifflin-St Jeor TDEE energy calculator with calibrated Indian food database (paneer, soya, dal). | <a href="https://fitai-qk6c.onrender.com/nutrition" target="_blank" rel="noopener noreferrer">Live Nutrition ↗</a> |
+| **⏱️ Exercise Library & Rest Timer** | Biomechanical form standards with an interactive rest interval timer (45s, 60s, 90s, 120s). | <a href="https://fitai-qk6c.onrender.com/workouts" target="_blank" rel="noopener noreferrer">Live Workouts ↗</a> |
+| **🤖 24/7 AI Coach Studio** | Context-aware sports trainer with conversational memory and hands-free Web Speech voice synthesis. | <a href="https://fitai-qk6c.onrender.com/coach" target="_blank" rel="noopener noreferrer">Live Coach ↗</a> |
+| **📈 Daily Progress Tracking** | Daily weight trends, hydration tracking, and smart recovery alerts based on sleep hours. | <a href="https://fitai-qk6c.onrender.com/dashboard" target="_blank" rel="noopener noreferrer">Live Dashboard ↗</a> |
+| **🔒 Google OAuth & JWT** | Secure Google Sign-In via Google Identity Services (GIS), bcrypt password hashing, and 7-day JWT tokens. | <a href="https://fitai-qk6c.onrender.com/login" target="_blank" rel="noopener noreferrer">Live Login ↗</a> |
 | **🎨 Athlete Design System** | Clean "Professional Athlete Dashboard" inspired by Apple Health & Strava (Inter/Manrope typography, 8px grid). | Tailwind System |
 
 ---
