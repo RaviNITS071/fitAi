@@ -1,58 +1,205 @@
-# fitAi
-# 🛠️ FitAI - Comprehensive Tech Stack Documentation // LIVE LINK : https://fitai-ivd5.onrender.com
+# ⚡ FitAI — AI-Powered Fitness & Clinical Nutrition Platform
 
-This document provides an in-depth breakdown of the technologies, frameworks, and tools used to architect and develop **FitAI**, a highly responsive and scalable full-stack web application.
+> An evidence-based, sports-science athletic platform powered by **LangChain.js**, **OpenAI Embeddings**, and **MongoDB Atlas Vector Search (RAG)** to generate clinically safe workout splits, macro-calibrated Indian nutrition plans, and 24/7 AI coaching.
 
----
-
-## 💻 Frontend Ecosystem (Client-Side)
-
-The frontend is designed to be fast, interactive, and visually stunning, providing users with a seamless experience across all devices.
-
-* **React.js:** The core JavaScript library used for building the user interface. It allows us to build reusable components (like `Navbar`, `ProfileForm`, `PlanDisplay`) and manage complex state efficiently.
-* **React Router DOM:** Handles client-side routing, enabling a Single Page Application (SPA) experience. It allows seamless navigation between pages (Home, Login, Dashboard) without reloading the browser.
-* **Tailwind CSS:** A utility-first CSS framework used for rapid UI development. It powers the glassmorphism effects, responsive grids, gradient animations, and the seamless Dark/Light mode toggling.
-* **Axios:** A promise-based HTTP client used to make asynchronous API requests to our backend securely and cleanly.
-* **Lucide React:** A beautifully crafted, highly customizable open-source icon library. Used to enhance the visual hierarchy and UX (e.g., `Dumbbell`, `Activity`, `Sun`, `Moon` icons).
+[![Live Application](https://img.shields.io/badge/Live_Demo-fitai--qk6c.onrender.com-22C55E?style=for-the-badge&logo=render&logoColor=white)](https://fitai-qk6c.onrender.com)
+[![Backend API](https://img.shields.io/badge/API_Health-online-0F172A?style=for-the-badge&logo=node.js&logoColor=white)](https://fitai-backend-jxsv.onrender.com/api/health)
+[![Tests Passing](https://img.shields.io/badge/Tests-29%2F29_Passing-10B981?style=for-the-badge&logo=jest&logoColor=white)](https://github.com)
 
 ---
 
-## ⚙️ Backend Ecosystem (Server-Side)
+## 🌐 Live Deployments
 
-The backend acts as the logic engine of FitAI, securely processing user data, handling authentication, and generating AI-driven fitness plans.
-
-* **Node.js:** A JavaScript runtime environment that executes server-side code, allowing us to use JavaScript for both the frontend and the backend.
-* **Express.js:** A fast, minimalist web framework for Node.js. It is used to set up the RESTful API endpoints (`/api/login`, `/api/generate-plan`), handle HTTP requests, and manage middleware.
-* **CORS (Cross-Origin Resource Sharing):** A Node.js package used as middleware to securely allow our frontend domain to communicate with our separate backend domain.
-* **Dotenv:** A zero-dependency module that loads environment variables from a `.env` file into `process.env`, keeping sensitive data like database URIs and secret keys secure.
+- **Production Frontend:** [https://fitai-qk6c.onrender.com](https://fitai-qk6c.onrender.com)
+- **Production Backend API:** [https://fitai-backend-jxsv.onrender.com](https://fitai-backend-jxsv.onrender.com)
+- **API Health Check:** [https://fitai-backend-jxsv.onrender.com/api/health](https://fitai-backend-jxsv.onrender.com/api/health)
 
 ---
 
-## 🗄️ Database Architecture
+## 💡 What Makes FitAI Different?
 
-FitAI requires a highly flexible database to store user profiles, dynamic biometric data, and complex generated fitness plans.
+Generic LLMs frequently hallucinate dangerous training splits, impractical diets, or contraindicated exercises for athletes with injuries. 
 
-* **MongoDB Atlas:** A fully managed cloud NoSQL database service. It stores user data in flexible, JSON-like documents, making it perfect for the dynamic data structures required for adaptive fitness tracking.
-* **Mongoose:** An elegant Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straight-forward, schema-based solution to model application data, enforce strict validation rules, and manage relationships between data entities.
-
----
-
-## 🚀 Deployment & DevOps
-
-To ensure FitAI is highly available and scalable, modern cloud deployment platforms are utilized.
-
-* **Render:** A unified cloud hosting platform used to deploy both the frontend and backend.
-    * **Frontend:** Deployed as a **Static Site**, utilizing rewrite rules to properly handle React Router's SPA routing.
-    * **Backend:** Deployed as a **Web Service**, running the Node.js/Express server continuously in the cloud.
-* **Git & GitHub:** Used for source code management, version control, and triggering automatic continuous integration/continuous deployment (CI/CD) pipelines on Render.
+**FitAI solves this by implementing a verified Retrieval-Augmented Generation (RAG) pipeline:**
+- **Evidence-Grounded:** Every routine, calorie recommendation, and safety guideline is grounded in an approved sports-science corpus with traceable source citations (`[S1, S2]`).
+- **Allergen & Medical Safeguards:** Automatically detects conditions like lower back sensitivity (substituting spinal axial-loading exercises with joint-sparing movements) and strictly excludes food allergens.
+- **Zero-Downtime Resilience:** Features an automated graceful fallback engine that ensures continuous generation even if third-party LLM rate limits (HTTP 429) occur.
+- **Authentic Indian Nutrition:** Calibrated meal plans with metric units (grams, katoris, rotis) built for vegetarian, eggetarian, and non-vegetarian lifestyles.
 
 ---
 
-## 🔄 Data Flow Architecture
+## 🧠 LangChain.js & RAG Architecture
 
-1.  **User Interaction:** The user interacts with the React UI (e.g., submits the login form).
-2.  **API Request:** Axios sends an HTTP POST request containing the data to the Express backend.
-3.  **Processing & Validation:** Express routes the request, and Mongoose validates the incoming data against defined schemas.
-4.  **Database Transaction:** The backend securely reads from or writes to the MongoDB Atlas cluster.
-5.  **Response:** The backend sends a JSON response back to the client.
-6.  **State Update:** React updates the UI dynamically based on the received data (e.g., logging the user in and redirecting to the Dashboard).
+FitAI uses a two-pipeline retrieval architecture to ensure factual accuracy and sub-second generation speed:
+
+```
+[ PIPELINE A: Corpus Ingestion (Pre-computation) ]
+  Sports Science Knowledge Base (.js)
+      │
+      ▼
+  RecursiveCharacterTextSplitter (chunkSize: 1000, overlap: 150)
+      │
+      ▼
+  OpenAI text-embedding-3-small (1536-dimensional vectors)
+      │
+      ▼
+  MongoDB Atlas Vector Store ("chunks" collection + metadata)
+
+
+[ PIPELINE B: Request-Time Retrieval & Synthesis ]
+  User Biometrics & Objectives (Age, Weight, Goal, Medical Restrictions)
+      │
+      ▼
+  Query Vectorization (1536 dims)
+      │
+      ▼
+  MongoDB Atlas $vectorSearch (Filtered by goal: strength | endurance | general)
+      │
+      ▼
+  Top-K Evidence Retrieval (K=4) + Insufficient Context Gating
+      │
+      ▼
+  Structured Prompt with Evidence Blocks [S1, S2, ...]
+      │
+      ▼
+  ChatOpenAI withStructuredOutput(ZodSchema)
+      │
+      ▼
+  Grounded 6-Day Athlete Split + Indian Macros + Verifiable Citations
+```
+
+### Key RAG Engineering Highlights
+1. **Goal-Based Metadata Filtering:** RAG retrievals filter vectors by domain (`strength`, `endurance`, or `general`), eliminating cross-domain noise.
+2. **Insufficient Context Gating:** If no relevant sports-science evidence matches a query, generation halts safely with `status: "insufficient_context"` rather than making up answers.
+3. **Structured Type Safety:** Uses LangChain's `withStructuredOutput(ZodSchema)` to ensure zero markdown syntax leaks and predictable JSON contracts.
+4. **Hybrid Search Fallback:** Automatically switches between MongoDB Atlas `$vectorSearch` and exact in-memory cosine ranking during local offline testing.
+
+---
+
+## ✨ Core Features
+
+| Feature | Description | File / Route |
+| :--- | :--- | :--- |
+| **🏋️ RAG Plan Generator** | Generates 6-day split (Push/Pull/Legs/Rest), Indian macro meals, and injury precautions with citations. | `POST /api/generate-plan` |
+| **🥗 Macro Calculator** | Clinical Mifflin-St Jeor TDEE energy calculator with calibrated Indian food database (paneer, soya, dal). | [`/nutrition`](https://fitai-qk6c.onrender.com/nutrition) |
+| **⏱️ Exercise Library & Rest Timer** | Biomechanical form standards with an interactive rest interval timer (45s, 60s, 90s, 120s). | [`/workouts`](https://fitai-qk6c.onrender.com/workouts) |
+| **🤖 24/7 AI Coach Studio** | Context-aware sports trainer with conversational memory and hands-free Web Speech voice synthesis. | [`/coach`](https://fitai-qk6c.onrender.com/coach) |
+| **📈 Daily Progress Tracking** | Daily weight trends, hydration tracking, and smart recovery alerts based on sleep hours. | [`/dashboard`](https://fitai-qk6c.onrender.com/dashboard) |
+| **🔒 Google OAuth & JWT** | Secure Google Sign-In via Google Identity Services (GIS), bcrypt password hashing, and 7-day JWT tokens. | `POST /api/auth/google` |
+| **🎨 Athlete Design System** | Clean "Professional Athlete Dashboard" inspired by Apple Health & Strava (Inter/Manrope typography, 8px grid). | Tailwind System |
+
+---
+
+## 🛠️ Complete Tech Stack
+
+```
+Frontend:    React 19 • React Router DOM v7 • Tailwind CSS • Lucide React • Axios • Vite
+Backend:     Node.js • Express.js • Mongoose • JWT • Google Auth Library • Express Rate Limit
+GenAI & RAG: LangChain.js • OpenAI Embeddings • ChatOpenAI • Gemini Flash Fallback • Zod
+Database:    MongoDB Atlas (Cloud Cluster) • Atlas Vector Search ($vectorSearch)
+DevOps:      Render (Static Site + Web Service) • Git CI/CD • render.yaml Blueprint
+```
+
+---
+
+## 🚀 Local Development Setup
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/<YOUR-USERNAME>/fitAi.git
+cd fitAi
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file in the `backend/` directory:
+```env
+PORT=5000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+MONGODB_URI=mongodb+srv://<USER>:<PASSWORD>@cluster0.yue5qgi.mongodb.net/
+JWT_SECRET=your_secret_jwt_key
+OPENAI_API_KEY=sk-proj-...
+OPENAI_CHAT_MODEL=gpt-4o-mini
+OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+GOOGLE_CLIENT_ID=your-web-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-secret
+```
+
+Start the backend server:
+```bash
+npm run dev
+# Server running on http://localhost:5000
+```
+
+### 3. Frontend Setup
+In a new terminal window:
+```bash
+cd frontend
+npm install
+```
+
+Create a `.env` file in the `frontend/` directory:
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_GOOGLE_CLIENT_ID=your-web-client-id.apps.googleusercontent.com
+```
+
+Start the frontend development server:
+```bash
+npm run dev
+# Vite dev server running on http://localhost:5173
+```
+
+---
+
+## 🧪 Automated Testing
+
+FitAI includes an automated test suite verifying RAG contracts, cosine ranking, text chunking, and injection security:
+
+```bash
+cd backend
+npm test
+```
+
+```text
+PASS tests/integration.test.js
+PASS tests/rag-evaluation.test.js
+PASS tests/chunking.test.js
+PASS tests/rag-contracts.test.js
+PASS tests/security-injection.test.js
+PASS tests/cosine.test.js
+
+Test Suites: 6 passed, 6 total
+Tests:       29 passed, 29 total
+Time:        3.12 s
+```
+
+---
+
+## ☁️ Deployment Architecture on Render
+
+FitAI is deployed on Render using a two-tier configuration:
+
+1. **Backend Web Service (`fitai-backend`):**
+   - Root Directory: `backend`
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+   - Health Check: `/api/health`
+2. **Frontend Static Site (`fitai-frontend`):**
+   - Root Directory: `frontend`
+   - Build Command: `npm install && npm run build`
+   - Publish Directory: `dist`
+   - **SPA Routing Rewrite Rule:** `/*` ➔ `/index.html` (Rewrite)
+3. **Automated Blueprint (`render.yaml`):**
+   - The root [`render.yaml`](render.yaml) automatically provisions both services with environment variables and rewrite rules in one click via Render Blueprints.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [ISC License](LICENSE).
