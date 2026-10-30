@@ -1,17 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react';
-import { chatWithAI } from '../api/client'; // Adjust path if needed
+import { MessageSquare, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { chatWithAI } from '../api/client';
 
 export default function Chatbot({ user }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { sender: 'ai', text: `Hi ${user?.username || 'there'}! I'm your FitAI coach. Ask me anything about your diet, workouts, or profile.` }
+    { sender: 'ai', text: `Hello ${user?.username || 'there'}. I am your FitAI sports science assistant. Ask me anything regarding your workouts, nutrition targets, or exercise modifications.` }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -29,7 +28,7 @@ export default function Chatbot({ user }) {
       const res = await chatWithAI(user._id, userMessage);
       setMessages(prev => [...prev, { sender: 'ai', text: res.data.reply }]);
     } catch (error) {
-      setMessages(prev => [...prev, { sender: 'ai', text: "Sorry, I'm having trouble connecting to the server right now." }]);
+      setMessages(prev => [...prev, { sender: 'ai', text: "Unable to process request right now. Please verify server connectivity." }]);
     } finally {
       setIsLoading(false);
     }
@@ -40,85 +39,71 @@ export default function Chatbot({ user }) {
       {/* Floating Chat Button */}
       <button 
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 z-40 ${isOpen ? 'scale-0' : 'scale-100'}`}
+        className={`fixed bottom-6 right-6 w-11 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg shadow-dropdown flex items-center justify-center hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors z-40 ${isOpen ? 'hidden' : 'flex'}`}
+        aria-label="Open AI Assistant"
       >
-        <MessageCircle size={28} />
+        <MessageSquare size={18} />
       </button>
 
       {/* Chat Window */}
-      <div className={`fixed bottom-6 right-6 w-[350px] sm:w-[400px] h-[500px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl flex flex-col z-50 transition-all origin-bottom-right ${isOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0 pointer-events-none'}`}>
-        
-        {/* Chat Header */}
-        <div className="flex items-center justify-between bg-blue-600 p-4 rounded-t-2xl text-white">
-          <div className="flex items-center gap-2">
-            <Bot size={24} />
-            <h3 className="font-bold text-lg">FitAI Coach</h3>
-          </div>
-          <button onClick={() => setIsOpen(false)} className="hover:bg-blue-700 p-1 rounded-lg transition-colors">
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-slate-950 custom-scrollbar">
-          {messages.map((msg, idx) => (
-            <div key={idx} className={`flex gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              
-              {msg.sender === 'ai' && (
-                <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 shrink-0">
-                  <Bot size={16} />
-                </div>
-              )}
-              
-              <div className={`px-4 py-2.5 rounded-2xl max-w-[75%] text-sm leading-relaxed ${
-                msg.sender === 'user' 
-                ? 'bg-blue-600 text-white rounded-br-none shadow-sm' 
-                : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-700 rounded-bl-none shadow-sm'
-              }`}>
-                {msg.text}
-              </div>
-
-              {msg.sender === 'user' && (
-                <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500 shrink-0">
-                  <User size={16} />
-                </div>
-              )}
-            </div>
-          ))}
+      {isOpen && (
+        <div className="fixed bottom-6 right-6 w-[340px] sm:w-[380px] h-[480px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-dropdown flex flex-col z-50 overflow-hidden">
           
-          {isLoading && (
-            <div className="flex gap-2 justify-start items-center text-slate-400">
-              <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 shrink-0">
-                  <Bot size={16} />
-              </div>
-              <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 px-4 py-3 rounded-2xl rounded-bl-none shadow-sm flex gap-1.5">
-                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"></div>
-                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-              </div>
+          {/* Header */}
+          <div className="flex items-center justify-between bg-slate-900 dark:bg-slate-800 px-4 py-3 text-white">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <h3 className="font-semibold text-sm">FitAI Assistant</h3>
             </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
+            <button 
+              onClick={() => setIsOpen(false)} 
+              className="text-slate-400 hover:text-white p-1 rounded transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
 
-        {/* Input Area */}
-        <form onSubmit={handleSend} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 rounded-b-2xl flex gap-2">
-          <input 
-            type="text" 
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about your plan..." 
-            className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 outline-none focus:border-blue-500 transition-colors text-sm"
-          />
-          <button 
-            type="submit" 
-            disabled={isLoading || !input.trim()}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0"
-          >
-            {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} className="ml-1" />}
-          </button>
-        </form>
-      </div>
+          {/* Messages Body */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#F8FAFC] dark:bg-slate-950 custom-scrollbar text-xs">
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`flex gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`p-3 rounded-lg max-w-[80%] leading-relaxed ${
+                  msg.sender === 'user' 
+                  ? 'bg-slate-900 text-white font-medium' 
+                  : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800'
+                }`}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex items-center gap-2 text-slate-400 text-xs py-1">
+                <Loader2 size={14} className="animate-spin" />
+                <span>Generating advice...</span>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Footer */}
+          <form onSubmit={handleSend} className="p-2.5 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex gap-2">
+            <input 
+              type="text" 
+              placeholder="Ask about workouts, macros..." 
+              value={input} 
+              onChange={e => setInput(e.target.value)} 
+              className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-3 py-1.5 outline-none focus:border-slate-900 dark:focus:border-slate-400 text-xs" 
+            />
+            <button 
+              type="submit" 
+              disabled={isLoading || !input.trim()}
+              className="p-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 disabled:opacity-40 text-white rounded-lg transition-colors"
+            >
+              <Send size={14} />
+            </button>
+          </form>
+        </div>
+      )}
     </>
   );
 }

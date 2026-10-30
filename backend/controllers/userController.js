@@ -208,12 +208,13 @@ exports.generatePlan = async (req, res) => {
 
     // Check if OpenAI is configured, otherwise fallback to Gemini or structured rule synthesizer
     if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.startsWith("sk-")) {
-      const model = new ChatOpenAI({
-        model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
-        temperature: 0.2
-      });
+      try {
+        const model = new ChatOpenAI({
+          model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
+          temperature: 0.2
+        });
 
-      const planPrompt = `You are FitAI's clinical sports nutritionist and exercise physiologist.
+        const planPrompt = `You are FitAI's clinical sports nutritionist and exercise physiologist.
 Create a RAG-GROUNDED, SAFE, and HIGHLY PERSONALIZED fitness and diet plan.
 
 USER BIOMETRICS:
@@ -253,28 +254,39 @@ RULES:
   "sourceIds": ["S1"]
 }`;
 
-      const resText = await model.invoke(planPrompt);
-      const cleanJson = resText.content.replace(/```json/gi, '').replace(/```/gi, '').trim();
-      aiPlanResult = JSON.parse(cleanJson);
-    } else if (genAI) {
-      const model = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-        generationConfig: {
-          temperature: 0.3,
-          responseMimeType: "application/json"
-        }
-      });
+        const resText = await model.invoke(planPrompt);
+        const cleanJson = resText.content.replace(/```json/gi, '').replace(/```/gi, '').trim();
+        aiPlanResult = JSON.parse(cleanJson);
+      } catch (openAiErr) {
+        console.warn("OpenAI Plan generation failed or quota reached, falling back seamlessly:", openAiErr.message);
+      }
+    }
 
-      const geminiPrompt = `Create a grounded fitness and diet plan for:
+    if (!aiPlanResult && genAI) {
+      try {
+        const model = genAI.getGenerativeModel({
+          model: "gemini-2.5-flash",
+          generationConfig: {
+            temperature: 0.3,
+            responseMimeType: "application/json"
+          }
+        });
+
+        const geminiPrompt = `Create a grounded fitness and diet plan for:
 Goal: ${safeGoal}, Weight: ${safeWeight}kg, Calories: ${calculatedCalories}kcal, Equipment: ${safeEquipment}, Diet: ${safeDiet}, Allergies: ${safeAllergies}, Medical: ${safeMedical}.
 Evidence: ${JSON.stringify(formattedEvidence)}.
 Provide 6-day workout split, Sunday Rest, Indian diet, and precautions. Cite sourceIds: ["S1"].
 Format as JSON: { "precautions": [], "workoutPlan": { "focus": "", "weeklySplit": "6-Day Split", "routine": [] }, "dietPlan": { "targetCalories": ${calculatedCalories}, "macros": {}, "meals": [] }, "sourceIds": ["S1"] }`;
 
-      const result = await model.generateContent(geminiPrompt);
-      const cleanJson = result.response.text().replace(/```json/gi, '').replace(/```/gi, '').trim();
-      aiPlanResult = JSON.parse(cleanJson);
-    } else {
+        const result = await model.generateContent(geminiPrompt);
+        const cleanJson = result.response.text().replace(/```json/gi, '').replace(/```/gi, '').trim();
+        aiPlanResult = JSON.parse(cleanJson);
+      } catch (geminiErr) {
+        console.warn("Gemini fallback plan generation failed:", geminiErr.message);
+      }
+    }
+
+    if (!aiPlanResult) {
       // Deterministic fallback plan grounded in verified evidence
       aiPlanResult = {
         precautions: [
@@ -358,12 +370,13 @@ exports.chatWithAI = async (req, res) => {
     let replyText = "";
 
     if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.startsWith("sk-")) {
-      const model = new ChatOpenAI({
-        model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
-        temperature: 0.3
-      });
+      try {
+        const model = new ChatOpenAI({
+          model: process.env.OPENAI_CHAT_MODEL || "gpt-4o-mini",
+          temperature: 0.3
+        });
 
-      const prompt = `You are FitAI Coach, a supportive, certified sports trainer and dietitian for ${user.username}.
+        const prompt = `You are FitAI Coach, a supportive, certified sports trainer and dietitian for ${user.username}.
 Answer concisely (under 120 words).
 USER PROFILE: ${profileData}
 CURRENT PLAN: ${JSON.stringify(user.aiPlan?.workoutPlan?.focus || "Standard split")}
@@ -374,23 +387,34 @@ USER QUESTION: "${message}"
 
 Always be positive, evidence-based, and mindful of their safety restrictions.`;
 
-      const result = await model.invoke(prompt);
-      replyText = result.content;
-    } else if (genAI) {
-      const model = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-        generationConfig: { temperature: 0.4 }
-      });
+        const result = await model.invoke(prompt);
+        replyText = result.content;
+      } catch (chatErr) {
+        console.warn("OpenAI Chatbot failed, using fallback:", chatErr.message);
+      }
+    }
 
-      const prompt = `You are FitAI Coach for ${user.username}.
+    if (!replyText && genAI) {
+      try {
+        const model = genAI.getGenerativeModel({
+          model: "gemini-2.5-flash",
+          generationConfig: { temperature: 0.4 }
+        });
+
+        const prompt = `You are FitAI Coach for ${user.username}.
 Answer concisely (under 120 words).
 USER PROFILE: ${profileData}
 EVIDENCE: ${evidenceSnippets}
 QUESTION: "${message}"`;
 
-      const result = await model.generateContent(prompt);
-      replyText = result.response.text();
-    } else {
+        const result = await model.generateContent(prompt);
+        replyText = result.response.text();
+      } catch (geminiErr) {
+        console.warn("Gemini Chatbot fallback failed:", geminiErr.message);
+      }
+    }
+
+    if (!replyText) {
       replyText = `Hi ${user.username}! Based on your ${user.profile?.goal || 'fitness'} goals and our verified evidence guidelines, make sure to stay consistent, progressive in your resistance work, and hydrate thoroughly. Let me know if you need specific exercise alternatives!`;
     }
 

@@ -39,13 +39,25 @@ async function verifyGoogleToken(credential) {
 
   // Fallback safe base64 decode for dev / test simulation
   try {
+    if (typeof credential === 'string' && credential.trim().startsWith('{')) {
+      const parsed = JSON.parse(credential);
+      if (parsed.email) {
+        return {
+          email: parsed.email,
+          sub: parsed.sub || `google-dev-${Date.now()}`,
+          name: parsed.name || parsed.given_name || parsed.email.split('@')[0],
+          picture: parsed.picture || null
+        };
+      }
+    }
+
     const parts = credential.split('.');
     if (parts.length === 3) {
       const payloadJson = Buffer.from(parts[1], 'base64').toString('utf-8');
       return JSON.parse(payloadJson);
     }
   } catch (e) {
-    // If not a valid JWT, check if it's a test payload string
+    // If not a valid JWT or JSON, throw informative error
   }
 
   throw new Error("Invalid Google token provided");

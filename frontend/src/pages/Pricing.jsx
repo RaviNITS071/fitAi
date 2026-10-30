@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Sparkles, Zap, Shield, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Pricing() {
@@ -9,164 +9,164 @@ export default function Pricing() {
   const tiers = [
     {
       name: 'Free Starter',
-      description: 'Foundational fitness tools and basic movement libraries.',
+      description: 'Essential fitness tools and full exercise library access.',
       monthlyPrice: 0,
       annualPrice: 0,
       popular: false,
       features: [
-        'Interactive Movement & Exercise Studio',
-        'Mifflin-St Jeor TDEE & Macro Calculator',
-        'Hydration Tracker with Glass Counter',
-        'Access to Verified Knowledge Corpus',
-        'Community Stories & Testimonials'
+        'Complete Exercise & Movement Library',
+        'TDEE & Daily Macro Calculator',
+        'Interactive Hydration Tracker',
+        'Rest Interval Workout Timers',
+        'Community Stories & Tips'
       ],
-      ctaText: 'Start for Free',
+      ctaText: 'Start Free',
       ctaLink: '/login'
     },
     {
-      name: 'Pro Athlete',
-      description: 'Complete GenAI RAG engine with personalized splits & Indian nutrition.',
+      name: 'Pro Member',
+      description: 'Fully personalized workout splits & custom Indian meal plans.',
       monthlyPrice: 19,
       annualPrice: 14,
       popular: true,
-      badge: 'Most Popular',
+      badge: 'Recommended',
       features: [
         'Everything in Free Starter',
-        'RAG-Grounded 6-Day Workout Splits',
-        'Custom Indian Nutrition & Macro Meal Plans',
-        'Strict Medical & Allergen Safety Filters',
-        'Unlimited AI Coach Studio Conversations',
-        'Verifiable Citations with Source Provenance',
-        'Dynamic Progress & Biometric Tracking'
+        'Personalized 6-Day Workout Splits',
+        'Custom Indian Nutrition & Macro Meals',
+        'Allergy & Medical Condition Safeguards',
+        'Unlimited AI Coach Conversations',
+        'Detailed Progress & Weight Tracking',
+        'Weekly Routine Adjustments'
       ],
-      ctaText: 'Claim 14-Day Free Trial',
+      ctaText: 'Start 14-Day Free Trial',
       ctaLink: '/login'
     },
     {
-      name: 'Elite Coach & Voice',
-      description: 'Advanced multi-modal intelligence with conversational voice guidance.',
+      name: 'Elite Athlete',
+      description: 'Comprehensive fitness coaching with voice assistance and priority support.',
       monthlyPrice: 49,
       annualPrice: 39,
       popular: false,
       features: [
-        'Everything in Pro Athlete',
-        'Web Speech & Telephonic Voice Guidance',
-        'Multi-Query Vector Retrieval & MMR Diversity',
-        'Biomechanical Form Correction Logs',
-        'Priority GPU Inference Latency (<800ms)',
-        'Exportable Sports Science Audit Reports',
-        'Direct 1-on-1 Engineering Support'
+        'Everything in Pro Member',
+        'Hands-Free Voice Coaching Guidance',
+        'Advanced Form & Biomechanical Cues',
+        'Priority 24/7 Coach Response Time',
+        'Exportable Workout & Nutrition Logs',
+        '1-on-1 Plan Optimization Review'
       ],
-      ctaText: 'Unlock Elite Performance',
+      ctaText: 'Unlock Elite Access',
       ctaLink: '/login'
     }
   ];
 
   const faqs = [
     {
-      q: "How does FitAI's RAG system differ from basic ChatGPT fitness advice?",
-      a: "Generic LLMs frequently hallucinate unsafe exercise loads or recommend allergens. FitAI uses Retrieval-Augmented Generation (RAG) over a vetted clinical and sports science knowledge base. Every precaution and workout guideline is grounded in retrieved source documents with explicit citation provenance."
+      q: "How does FitAI create safer, more accurate plans than generic chatbots?",
+      a: "Generic AI often hallucinates impractical routines or unsafe weights. FitAI uses clinical sports science guidelines and verified nutritional databases to ensure every routine, calorie target, and precaution matches your exact biometrics and limitations."
     },
     {
-      q: "Can I use Google Sign-In to access my account?",
-      a: "Yes! FitAI has integrated Google OAuth 2.0. You can authenticate seamlessly with your Google email or use standard credentials."
+      q: "Can I sign in easily with my Google Account?",
+      a: "Yes. FitAI supports Google Sign-In. You can log in securely with your Google email in one click, or use standard credentials."
     },
     {
-      q: "Are the nutrition recommendations suitable for Indian dietary patterns?",
-      a: "Absolutely. FitAI specializes in authentic Indian nutrition: dal, whole wheat rotis, paneer, soya chunks, Greek yogurt, sprouts, and lean poultry, with metric portion sizes in grams and katoris."
+      q: "Are the meal recommendations suitable for vegetarian and Indian diets?",
+      a: "Yes. FitAI includes extensive authentic Indian food options: paneer, dal, whole wheat rotis, soya chunks, Greek yogurt, sprouts, and lean poultry, with metric portion sizes in grams and katoris."
     },
     {
-      q: "Can I cancel or switch my plan at any time?",
-      a: "Yes, you can upgrade, downgrade, or cancel anytime directly from your dashboard with zero lock-in."
+      q: "Can I cancel or change my plan anytime?",
+      a: "Yes, there is no lock-in. You can upgrade, downgrade, or cancel your subscription at any time directly from your account settings."
     }
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
       
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-wider mb-3">
-          <Sparkles size={14} /> Transparent & Flexible Plans
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          Invest in Your <span className="gradient-text">Physical Potential</span>
+      <div className="text-center max-w-2xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+          Transparent, athlete-focused plans
         </h1>
-        <p className="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-400">
-          Select the optimal plan to accelerate your strength, body composition, and endurance.
+        <p className="mt-2 text-base text-slate-600 dark:text-slate-400">
+          Choose the level of programming and coaching that matches your physical ambitions.
         </p>
 
         {/* Annual / Monthly Toggle */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <span className={`text-sm font-bold ${!isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>
-            Monthly Billing
-          </span>
+        <div className="inline-flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg mt-8">
           <button
-            onClick={() => setIsAnnual(!isAnnual)}
-            className="w-14 h-8 bg-indigo-600 rounded-full p-1 relative transition-colors focus:outline-none"
+            onClick={() => setIsAnnual(false)}
+            className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+              !isAnnual 
+                ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' 
+                : 'text-slate-600 dark:text-slate-400'
+            }`}
           >
-            <div className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ${isAnnual ? 'translate-x-6' : 'translate-x-0'}`} />
+            Monthly
           </button>
-          <div className="flex items-center gap-2">
-            <span className={`text-sm font-bold ${isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>
-              Annual Billing
-            </span>
-            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-              Save 25%
-            </span>
-          </div>
+          <button
+            onClick={() => setIsAnnual(true)}
+            className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+              isAnnual 
+                ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm' 
+                : 'text-slate-600 dark:text-slate-400'
+            }`}
+          >
+            <span>Annual</span>
+            <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.2 rounded">Save 25%</span>
+          </button>
         </div>
       </div>
 
       {/* Pricing Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
         {tiers.map((tier, idx) => (
           <div
             key={idx}
-            className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
+            className={`bg-white dark:bg-slate-900 rounded-xl p-6 shadow-card flex flex-col justify-between transition-colors relative border ${
               tier.popular
-                ? 'bg-gradient-to-b from-indigo-900/10 to-purple-900/10 dark:from-indigo-950/40 dark:to-purple-950/40 border-2 border-indigo-600 shadow-2xl shadow-indigo-500/10 scale-105'
-                : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/20 dark:shadow-none'
+                ? 'border-emerald-600 dark:border-emerald-500 ring-1 ring-emerald-600 dark:ring-emerald-500'
+                : 'border-slate-200 dark:border-slate-800'
             }`}
           >
             {tier.badge && (
-              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-indigo-600 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-indigo-600/30">
+              <span className="absolute -top-3 left-6 px-2.5 py-0.5 rounded-md bg-emerald-600 text-white font-semibold text-[11px] uppercase tracking-wide">
                 {tier.badge}
               </span>
             )}
 
             <div>
-              <h3 className="text-2xl font-black text-slate-900 dark:text-white">{tier.name}</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 min-h-[36px]">{tier.description}</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{tier.name}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 min-h-[32px]">{tier.description}</p>
 
-              <div className="my-6">
-                <span className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white">
+              <div className="my-5 pb-5 border-b border-slate-100 dark:border-slate-800">
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
                   ${isAnnual ? tier.annualPrice : tier.monthlyPrice}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400 text-sm font-semibold ml-2">/ month</span>
+                <span className="text-slate-500 text-xs font-normal ml-1">/ month</span>
                 {isAnnual && tier.annualPrice > 0 && (
-                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Billed annually (${tier.annualPrice * 12}/yr)</p>
+                  <p className="text-[11px] text-slate-400 mt-1">Billed annually (${tier.annualPrice * 12}/year)</p>
                 )}
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <span className="text-xs font-black uppercase text-slate-400 tracking-wider block">Included Features:</span>
+              <div className="space-y-2.5">
+                <span className="text-xs font-semibold text-slate-900 dark:text-white block mb-2">Features Included:</span>
                 {tier.features.map((feat, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-semibold">
-                    <Check size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
+                    <Check size={14} className="text-emerald-500 shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800">
               <Link
                 to={tier.ctaLink}
-                className={`w-full py-3.5 rounded-2xl font-black text-sm text-center block transition-all shadow-md active:scale-98 ${
+                className={`w-full py-2.5 rounded-lg font-medium text-xs text-center block transition-colors shadow-sm ${
                   tier.popular
-                    ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/25'
-                    : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white'
+                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                    : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 text-white'
                 }`}
               >
                 {tier.ctaText}
@@ -177,26 +177,23 @@ export default function Pricing() {
       </div>
 
       {/* FAQ Section */}
-      <div className="max-w-3xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-200/20 dark:shadow-none space-y-6">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Everything you need to know about our GenAI RAG engine and subscriptions</p>
-        </div>
+      <div className="max-w-2xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 sm:p-8 shadow-card space-y-4">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Frequently Asked Questions</h2>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
-              <div key={idx} className="border border-slate-100 dark:border-slate-800/80 rounded-2xl overflow-hidden">
+              <div key={idx} className="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  className="w-full p-3.5 text-left flex items-center justify-between gap-4 font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100"
                 >
                   <span>{faq.q}</span>
-                  {isOpen ? <ChevronUp size={18} className="shrink-0" /> : <ChevronDown size={18} className="shrink-0" />}
+                  {isOpen ? <ChevronUp size={15} className="shrink-0 text-slate-400" /> : <ChevronDown size={15} className="shrink-0 text-slate-400" />}
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                  <div className="px-3.5 pb-3.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                     {faq.a}
                   </div>
                 )}

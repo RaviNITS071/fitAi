@@ -1,49 +1,65 @@
 import React from 'react';
 import { 
-  Dumbbell, Utensils, Activity, Bot, ArrowRight, Database, 
-  Sparkles, CheckCircle2, ShieldCheck, Cpu, Star, Flame
+  Dumbbell, Utensils, Bot, ArrowRight, 
+  CheckCircle2, Star, TrendingUp, ShieldCheck
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
 export default function Home({ onNavigate, isDarkMode, toggleTheme, user, onLogout }) {
-  const navigate = useNavigate();
-
-  const corePillars = [
+  const features = [
     {
-      title: "RAG Vector Search Engine",
-      description: "1,536-dimensional embeddings with cosine similarity and deterministic goal pre-filters in MongoDB Atlas.",
-      icon: <Database size={28} className="text-indigo-600 dark:text-indigo-400" />,
-      tag: "GenAI Core",
-      link: "/rag-explorer"
-    },
-    {
-      title: "6-Day Adaptive Splits",
-      description: "Progressive overload protocols, biomechanical form cues, and mandatory Sunday active recovery.",
-      icon: <Dumbbell size={28} className="text-purple-600 dark:text-purple-400" />,
-      tag: "Strength & Hypertrophy",
+      title: "6-Day Workout Splits",
+      description: "Progressive overload programming with structured sets, reps, and built-in interval rest timers.",
+      icon: <Dumbbell size={22} className="text-slate-900 dark:text-slate-100" />,
+      tag: "Training",
       link: "/workouts"
     },
     {
-      title: "Indian Macro Nutrition",
-      description: "Mifflin-St Jeor TDEE calculations paired with authentic Indian meals (paneer, dal, soya chunks, chicken).",
-      icon: <Utensils size={28} className="text-emerald-600 dark:text-emerald-400" />,
-      tag: "Nutrition Science",
+      title: "Macro-Calibrated Nutrition",
+      description: "Indian and global high-protein meal plans aligned with Mifflin-St Jeor TDEE calorie calculations.",
+      icon: <Utensils size={22} className="text-slate-900 dark:text-slate-100" />,
+      tag: "Nutrition",
       link: "/nutrition"
     },
     {
-      title: "Conversational Coach Studio",
-      description: "24/7 AI coach with citation provenance, speech synthesis audio read-aloud, and zero hallucinations.",
-      icon: <Bot size={28} className="text-amber-600 dark:text-amber-400" />,
-      tag: "Voice & Text",
+      title: "24/7 AI Coach",
+      description: "Immediate guidance on exercise modifications, form checks, recovery protocols, and meal swaps.",
+      icon: <Bot size={22} className="text-slate-900 dark:text-slate-100" />,
+      tag: "Coaching",
       link: "/coach"
+    },
+    {
+      title: "Daily Habit & Metric Tracking",
+      description: "Track body weight trends, log completed sessions, and monitor daily hydration targets consistently.",
+      icon: <TrendingUp size={22} className="text-slate-900 dark:text-slate-100" />,
+      tag: "Analytics",
+      link: user ? "/dashboard" : "/login"
+    }
+  ];
+
+  const steps = [
+    {
+      step: "01",
+      title: "Profile & Biometrics",
+      desc: "Input your weight, height, age, activity level, fitness objectives, and dietary preferences."
+    },
+    {
+      step: "02",
+      title: "Personalized Protocol",
+      desc: "Receive an evidence-based 6-day split, custom calorie targets, and orthopedic injury precautions."
+    },
+    {
+      step: "03",
+      title: "Log & Track Progress",
+      desc: "Execute workouts with interval timers, record body metrics, and adjust protocols with your AI coach."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 transition-colors">
       
-      {/* Top Navbar */}
+      {/* Navigation */}
       <Navbar 
         user={user} 
         isDarkMode={isDarkMode} 
@@ -52,108 +68,99 @@ export default function Home({ onNavigate, isDarkMode, toggleTheme, user, onLogo
       />
 
       {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 text-center relative overflow-hidden">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
         
-        {/* Glow Spheres */}
-        <div className="absolute top-10 left-1/4 w-96 h-96 bg-indigo-500/10 blur-[130px] rounded-full -z-10 pointer-events-none" />
-        <div className="absolute top-20 right-1/4 w-96 h-96 bg-purple-500/10 blur-[130px] rounded-full -z-10 pointer-events-none" />
-
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-widest mb-8 shadow-sm">
-          <Sparkles size={14} className="animate-pulse" />
-          <span>Next-Gen MERN + LangChain.js Architecture</span>
+        {/* Subtle Category Pill */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span>Professional Athlete Platform</span>
         </div>
 
-        {/* Main Headline */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight max-w-5xl mx-auto leading-[1.1] mb-6">
-          Your Personal <span className="gradient-text">RAG-Grounded AI Coach</span> For Verifiable Progress.
+        {/* Main Hero Headline */}
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight sm:leading-tight mb-6">
+          Evidence-based training and nutrition, engineered for results.
         </h1>
 
-        <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
-          Say goodbye to fabricated workout routines. FitAI uses LangChain.js, OpenAI embeddings, and MongoDB Atlas Vector Search to retrieve evidence-backed fitness guidance and Indian nutrition protocols with strict citation audits.
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+          Structured 6-day workout splits, calculated Indian nutrition plans, and intelligent daily progress tracking built for sustainable athletic performance.
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <Link
             to={user ? "/dashboard" : "/login"}
-            className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-base rounded-full shadow-xl shadow-indigo-600/30 active:scale-98 transition-all flex items-center justify-center gap-2 group"
+            className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-base rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2"
           >
-            <span>{user ? "Open Your Athlete Dashboard" : "Start Your Free Journey"}</span>
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <span>{user ? "Open Dashboard" : "Get Started Free"}</span>
+            <ArrowRight size={18} />
           </Link>
 
           <Link
-            to="/rag-explorer"
-            className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 hover:border-indigo-500 text-slate-800 dark:text-white font-black text-base rounded-full shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
+            to="/workouts"
+            className="w-full sm:w-auto px-6 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-medium text-base rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2"
           >
-            <Database size={18} className="text-indigo-500" />
-            <span>Inspect Live RAG Pipeline</span>
+            <Dumbbell size={18} className="text-slate-500" />
+            <span>Exercise Library</span>
           </Link>
         </div>
 
-        {/* Tech Stack Chips Bar */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-800/80 max-w-4xl mx-auto">
-          <span className="text-[11px] font-black uppercase text-slate-400 tracking-wider block mb-4">
-            Production Engineering Stack
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-300">
-            <span className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              MongoDB Atlas Vector Search ($vectorSearch)
-            </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              LangChain.js Orchestration
-            </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              OpenAI text-embedding-3-small (1,536 dims)
-            </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              Google OAuth 2.0
-            </span>
-            <span className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              Zod Structured Output Schema
-            </span>
+        {/* Trust & Metric Bar */}
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-left sm:text-center">
+          <div>
+            <span className="block text-2xl font-bold text-slate-900 dark:text-white">5,000+</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Athletes</span>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold text-slate-900 dark:text-white">6-Day</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Split Architecture</span>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold text-slate-900 dark:text-white">100%</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Macro-Calibrated</span>
+          </div>
+          <div>
+            <span className="block text-2xl font-bold text-slate-900 dark:text-white">24/7</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Coaching Intelligence</span>
           </div>
         </div>
       </main>
 
-      {/* Feature Pillars Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-            Engineered For Scientific Accuracy
+      {/* Core Features Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-2xl mb-12">
+          <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-500">Core Capabilities</span>
+          <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mt-1">
+            Built for serious training routines
           </h2>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            Explore how each layer of FitAI ensures zero hallucinations and maximum athletic performance.
+          <p className="mt-2 text-base text-slate-600 dark:text-slate-400">
+            A comprehensive suite of sports science tools designed without unnecessary clutter.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {corePillars.map((pillar, i) => (
+          {features.map((item, i) => (
             <Link
               key={i}
-              to={pillar.link}
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xl shadow-slate-200/20 dark:shadow-none hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+              to={item.link}
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-colors flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 group-hover:scale-110 transition-transform">
-                    {pillar.icon}
-                  </div>
-                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/50">
-                    {pillar.tag}
-                  </span>
+                <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                  {item.icon}
                 </div>
-                <h3 className="text-lg font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                  {pillar.title}
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-500 uppercase tracking-wide block mb-1">
+                  {item.tag}
+                </span>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                  {item.title}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                  {pillar.description}
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {item.description}
                 </p>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition-transform">
-                <span>Explore Feature</span>
+              <div className="pt-4 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center text-xs font-semibold text-slate-900 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                <span>View details</span>
                 <ArrowRight size={14} className="ml-1" />
               </div>
             </Link>
@@ -161,26 +168,78 @@ export default function Home({ onNavigate, isDarkMode, toggleTheme, user, onLogo
         </div>
       </section>
 
-      {/* CTA Footer Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-8 sm:p-14 text-center text-white relative overflow-hidden shadow-2xl">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-black">Ready to Train Smarter With Evidence?</h2>
-            <p className="text-sm sm:text-base text-indigo-200">
-              Join FitAI today to generate your 6-day split, custom Indian diet plan, and real-time biometric tracking.
+      {/* Step by Step Workflow */}
+      <section className="bg-white dark:bg-slate-900/60 border-y border-slate-200 dark:border-slate-800 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-500">Methodology</span>
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-white mt-1">
+              How FitAI structures your progression
+            </h2>
+            <p className="mt-2 text-base text-slate-600 dark:text-slate-400">
+              Clear, systematic execution from assessment to weekly adaptation.
             </p>
-            <div className="pt-2">
-              <Link
-                to={user ? "/dashboard" : "/login"}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 hover:bg-indigo-50 font-black text-sm rounded-full shadow-lg active:scale-98 transition-all"
-              >
-                <span>Get Started Now</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {steps.map((s, idx) => (
+              <div key={idx} className="bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-xl">
+                <span className="text-xs font-mono font-bold text-slate-400 block mb-3">
+                  {s.step}
+                </span>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {s.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Call to Action Banner - Minimal & High Contrast */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="max-w-xl">
+            <h2 className="text-2xl sm:text-3xl font-semibold mb-2">Ready to optimize your training?</h2>
+            <p className="text-sm sm:text-base text-slate-400">
+              Generate your 6-day split and nutritional framework in less than two minutes.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <Link
+              to={user ? "/dashboard" : "/login"}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow-sm transition-colors"
+            >
+              <span>{user ? "Go to Dashboard" : "Start Free Plan"}</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Clean Minimalist Footer */}
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-10 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-900 dark:text-white">FitAI</span>
+            <span>•</span>
+            <span>Sports science and athletic performance</span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link to="/workouts" className="hover:text-slate-900 dark:hover:text-white">Workouts</Link>
+            <Link to="/nutrition" className="hover:text-slate-900 dark:hover:text-white">Nutrition</Link>
+            <Link to="/coach" className="hover:text-slate-900 dark:hover:text-white">AI Coach</Link>
+            <Link to="/pricing" className="hover:text-slate-900 dark:hover:text-white">Pricing</Link>
+            <Link to="/community" className="hover:text-slate-900 dark:hover:text-white">Community</Link>
+          </div>
+
+          <p>© 2026 FitAI. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }

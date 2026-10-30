@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Dumbbell, Filter, Search, Play, Pause, RotateCcw, Clock, 
-  Flame, ShieldCheck, ChevronDown, ChevronUp, Zap, Sparkles, CheckCircle2
+  ChevronDown, ChevronUp, CheckCircle2
 } from 'lucide-react';
 
 const EXERCISE_DATABASE = [
@@ -71,66 +71,66 @@ const EXERCISE_DATABASE = [
   },
   {
     id: 'goblet-squat',
-    name: 'Kettlebell / Dumbbell Goblet Squat',
+    name: 'Dumbbell / Kettlebell Goblet Squat',
     category: 'Legs',
-    targetMuscle: 'Quadriceps, Glutes, Core',
+    targetMuscle: 'Quadriceps, Gluteus Maximus, Core',
     difficulty: 'Beginner',
     equipment: 'Dumbbell or Kettlebell',
     recommendedSets: '3 - 4 Sets',
-    recommendedReps: '10 - 15 Reps',
+    recommendedReps: '10 - 12 Reps',
     restSeconds: 90,
     formCues: [
-      'Hold weight close to upper chest under your chin.',
-      'Squat between your knees while keeping torso upright.',
-      'Push through mid-foot and stand to full hip extension.'
+      'Hold weight against sternum with elbows tucked inward.',
+      'Descend until hip crease is below knee level while keeping chest upright.',
+      'Drive through mid-foot on ascent; keep knees tracking over 2nd toe.'
     ]
   },
   {
     id: 'romanian-deadlift',
-    name: 'Dumbbell Romanian Deadlift (RDL)',
+    name: 'Romanian Dumbbell Deadlift (RDL)',
     category: 'Legs',
-    targetMuscle: 'Hamstrings, Gluteus Maximus, Erector Spinae',
+    targetMuscle: 'Hamstrings, Glutes, Erector Spinae',
     difficulty: 'Intermediate',
     equipment: 'Dumbbells',
     recommendedSets: '3 Sets',
-    recommendedReps: '8 - 12 Reps',
-    restSeconds: 90,
+    recommendedReps: '8 - 10 Reps',
+    restSeconds: 120,
     formCues: [
-      'Soft knee bend throughout; initiate movement purely from hip hinge backward.',
-      'Keep dumbbells skimming down your thighs and shins.',
-      'Stop when hips can no longer travel backward; do not round thoracic spine.'
+      'Hinge strictly at the hips; keep soft bend in knees without squatting.',
+      'Trace dumbbells down the shins until deep hamstring tension is reached.',
+      'Do not round lumbar spine at any point in the movement.'
     ]
   },
   {
     id: 'hanging-knee-raise',
-    name: 'Hanging Knee / Leg Raises',
+    name: 'Hanging Knee / Leg Raise',
     category: 'Core',
-    targetMuscle: 'Rectus Abdominis, Hip Flexors',
+    targetMuscle: 'Rectus Abdominis, Iliopsoas',
     difficulty: 'Intermediate',
-    equipment: 'Pull-Up Bar',
+    equipment: 'Pull-up Bar',
     recommendedSets: '3 Sets',
     recommendedReps: '12 - 15 Reps',
     restSeconds: 60,
     formCues: [
-      'Hang from bar with active shoulders to protect rotator cuff.',
-      'Posteriorly tilt pelvis and curl knees up to chest level.',
-      'Avoid swinging or using momentum on the eccentric lowering.'
+      'Avoid swinging or using momentum from shoulder girdle.',
+      'Curl pelvis upward toward ribcage rather than simply lifting thighs.',
+      'Control the lowering phase for 2 seconds.'
     ]
   },
   {
-    id: 'zone2-treadmill',
-    name: 'Zone 2 Incline Steady-State Walk',
+    id: 'incline-treadmill-walk',
+    name: 'Zone 2 Incline Treadmill Walk',
     category: 'Cardio',
-    targetMuscle: 'Cardiovascular System, Mitochondrial Density',
+    targetMuscle: 'Cardiovascular System, Calves',
     difficulty: 'Beginner',
     equipment: 'Treadmill',
     recommendedSets: '1 Session',
-    recommendedReps: '30 - 45 Minutes',
+    recommendedReps: '20 - 30 Minutes',
     restSeconds: 0,
     formCues: [
-      'Set incline to 8-12% and speed to 4.5-5.5 km/h.',
-      'Maintain nasal breathing or conversational pace (60-70% max heart rate).',
-      'Builds massive aerobic base without generating muscular breakdown.'
+      'Set incline between 10% and 12%, speed between 4.0 - 5.0 km/h.',
+      'Maintain nasal breathing to stay in true Zone 2 aerobic threshold.',
+      'Do not hold onto handrails; swing arms naturally.'
     ]
   }
 ];
@@ -140,9 +140,9 @@ export default function Workouts() {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedId, setExpandedId] = useState(null);
 
-  // Rest Timer State
-  const [timerDuration, setTimerDuration] = useState(60);
-  const [secondsRemaining, setSecondsRemaining] = useState(60);
+  // Interval Rest Timer State
+  const [secondsRemaining, setSecondsRemaining] = useState(90);
+  const [timerDuration, setTimerDuration] = useState(90);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
@@ -173,45 +173,42 @@ export default function Workouts() {
   });
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       
-      {/* Header Banner */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-wider mb-3">
-          <Sparkles size={14} /> Comprehensive Exercise & Movement Studio
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          Master Your <span className="gradient-text">Movement Mechanics</span>
+      {/* Header */}
+      <div className="max-w-2xl">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+          Exercise & Movement Library
         </h1>
-        <p className="mt-3 text-base sm:text-lg text-slate-600 dark:text-slate-400">
-          Biomechanical execution guides, muscle recruitment data, and evidence-based rest parameters.
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          Biomechanical form standards, targeted muscle groups, and active set interval timers.
         </p>
       </div>
 
-      {/* Floating Rest Timer Widget */}
-      <div className="mb-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-xl shadow-indigo-500/5 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-            <Clock size={24} />
+      {/* Interval Rest Timer Widget - Clean Minimalist Box */}
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-card flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
+            <Clock size={20} />
           </div>
           <div>
-            <h3 className="font-extrabold text-slate-900 dark:text-white text-base">Workout Rest Interval Timer</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Optimize ATP-CP system replenishment between working sets</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Rest Interval Timer</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Track recovery intervals between working sets</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-2xl font-black text-2xl text-indigo-600 dark:text-indigo-400 min-w-[90px] text-center border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg font-mono font-bold text-xl text-slate-900 dark:text-white min-w-[75px] text-center">
             {Math.floor(secondsRemaining / 60)}:{(secondsRemaining % 60).toString().padStart(2, '0')}
           </div>
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             {[45, 60, 90, 120].map((sec) => (
               <button
                 key={sec}
                 onClick={() => startTimer(sec)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
                   timerDuration === sec && isTimerRunning
-                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
@@ -221,33 +218,33 @@ export default function Workouts() {
           </div>
           <button
             onClick={() => setIsTimerRunning(!isTimerRunning)}
-            className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-all shadow-md"
+            className="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
             title={isTimerRunning ? "Pause" : "Start"}
           >
-            {isTimerRunning ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
+            {isTimerRunning ? <Pause size={16} /> : <Play size={16} />}
           </button>
           <button
             onClick={() => { setIsTimerRunning(false); setSecondsRemaining(timerDuration); }}
-            className="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 transition-all"
+            className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 transition-colors"
             title="Reset"
           >
-            <RotateCcw size={18} />
+            <RotateCcw size={16} />
           </button>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-        {/* Category Pills */}
-        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* Category Segmented Controls */}
+        <div className="flex flex-wrap gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 scale-105'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-semibold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {cat}
@@ -256,14 +253,14 @@ export default function Workouts() {
         </div>
 
         {/* Search Input */}
-        <div className="relative w-full sm:w-72">
-          <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
+        <div className="relative w-full sm:w-64">
+          <Search size={15} className="absolute left-3 top-2.5 text-slate-400" />
           <input
             type="text"
-            placeholder="Search exercise or muscle..."
+            placeholder="Search movement or muscle..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-sm outline-none focus:border-indigo-500 dark:text-white transition-all shadow-sm"
+            className="w-full pl-9 pr-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-xs outline-none focus:border-slate-900 dark:focus:border-slate-400 text-slate-900 dark:text-white"
           />
         </div>
       </div>
@@ -275,71 +272,70 @@ export default function Workouts() {
           return (
             <div
               key={exercise.id}
-              className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 shadow-lg shadow-slate-200/30 dark:shadow-none hover:border-indigo-500/40 transition-all duration-300"
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-card transition-colors flex flex-col justify-between"
             >
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-black uppercase px-2.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/50">
-                      {exercise.category}
-                    </span>
-                    <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
-                      exercise.difficulty === 'Beginner' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400' :
-                      exercise.difficulty === 'Intermediate' ? 'bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400' :
-                      'bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400'
-                    }`}>
-                      {exercise.difficulty}
-                    </span>
+              <div>
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                        {exercise.category}
+                      </span>
+                      <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800/60 text-slate-500 border border-slate-200 dark:border-slate-700">
+                        {exercise.difficulty}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                      {exercise.name}
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                      Target: {exercise.targetMuscle}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">
-                    {exercise.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">
-                    🎯 {exercise.targetMuscle}
-                  </p>
+
+                  <div className="w-9 h-9 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center shrink-0">
+                    <Dumbbell size={18} />
+                  </div>
                 </div>
 
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-                  <Dumbbell size={24} />
-                </div>
-              </div>
-
-              {/* Protocol Quick Badges */}
-              <div className="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-slate-800 text-center my-4 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl">
-                <div>
-                  <span className="block text-[10px] font-black uppercase text-slate-400">Sets</span>
-                  <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200">{exercise.recommendedSets}</span>
-                </div>
-                <div>
-                  <span className="block text-[10px] font-black uppercase text-slate-400">Reps</span>
-                  <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200">{exercise.recommendedReps}</span>
-                </div>
-                <div>
-                  <span className="block text-[10px] font-black uppercase text-slate-400">Rest</span>
-                  <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200">{exercise.restSeconds}s</span>
+                {/* Protocol Quick Badges */}
+                <div className="grid grid-cols-3 gap-2 py-2.5 border-y border-slate-100 dark:border-slate-800 text-center my-3 bg-slate-50/50 dark:bg-slate-800/40 rounded-lg">
+                  <div>
+                    <span className="block text-[10px] font-medium text-slate-400 uppercase">Sets</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-200">{exercise.recommendedSets}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-medium text-slate-400 uppercase">Reps</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-200">{exercise.recommendedReps}</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-medium text-slate-400 uppercase">Rest</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-200">{exercise.restSeconds}s</span>
+                  </div>
                 </div>
               </div>
 
               {/* Expandable Form Cues */}
-              <button
-                onClick={() => setExpandedId(isExpanded ? null : exercise.id)}
-                className="w-full flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 py-1 transition-colors"
-              >
-                <span>{isExpanded ? 'Hide Biomechanical Form Cues' : 'View Biomechanical Form Cues'}</span>
-                {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              </button>
+              <div>
+                <button
+                  onClick={() => setExpandedId(isExpanded ? null : exercise.id)}
+                  className="w-full flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 pt-1 transition-colors"
+                >
+                  <span>{isExpanded ? 'Hide Form Instructions' : 'View Form Instructions'}</span>
+                  {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                </button>
 
-              {isExpanded && (
-                <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2 animate-in fade-in duration-300">
-                  <span className="text-[11px] font-extrabold uppercase text-slate-400 tracking-wider block">Key Technique Standards:</span>
-                  {exercise.formCues.map((cue, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                      <CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{cue}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+                {isExpanded && (
+                  <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                    {exercise.formCues.map((cue, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <CheckCircle2 size={13} className="text-emerald-500 shrink-0 mt-0.5" />
+                        <span>{cue}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
