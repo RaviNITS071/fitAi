@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// API Base URL from Vite environment variable or local development fallback
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+// API Base URL from Vite environment variable with smart normalization
+const rawApiUrl = (import.meta.env.VITE_API_URL || "http://localhost:5000/api").trim();
+const cleanUrl = rawApiUrl.replace(/\/+$/, '');
+const API_URL = cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
 
 const api = axios.create({
   baseURL: API_URL,

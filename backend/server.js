@@ -8,11 +8,13 @@ const app = express();
 
 // Flexible CORS setup for local dev, Vite, and production deployments
 const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://fitai-qk6c.onrender.com',
   'https://fitai-ivd5.onrender.com',
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000'
-];
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -29,7 +31,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'online',
     service: 'FitAI RAG & Fitness Engine',
@@ -38,6 +40,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api', apiRoutes);
+app.use('/', apiRoutes); // Direct root fallback for clients that omit /api in VITE_API_URL
 
 // Centralized error handling middleware (PDF Chapter 12 & 20)
 app.use((err, req, res, next) => {
